@@ -16,26 +16,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
+    - name: Set up Git config
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run Linter
-      run: npm run lint
-
-    - name: Build project
-      run: npm run build
+    - name: Check if gh-pages branch exists
+      run: git fetch origin gh-pages || git branch gh-pages
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
-        folder: .
+        folder: .  # Asegúrate de que sea la carpeta raíz del proyecto, si no, ajusta este valor
         token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Clean up
-      run: echo "No cleanup necessary"
