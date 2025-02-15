@@ -1,7 +1,7 @@
 /* Estilo global del body */
 body {
     font-family: 'Arial', sans-serif;
-    background-image: url(/images/landscape.jpg);  
+    background-image: url(images/landscape.jpg);  
     background-size: cover;
     color: #DCD7C9; 
     margin: 0;
