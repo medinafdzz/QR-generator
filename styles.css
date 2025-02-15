@@ -1,0 +1,154 @@
+/* Estilo global del body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url(/images/landscape.jpg);  
+    background-size: cover;
+    color: #DCD7C9; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Estilo del contenedor principal */
+.container {
+    background-color: #F2BF91;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    border: 2px solid #025959;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1), 0 0 15px #025959;
+}
+
+/* Estilo del título */
+h2 {
+    /*Letras antiguas medievales y en negrita*/
+    font-family: 'Goudy Bookletter 1911', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #025959;
+}
+
+/* Contenedor de los inputs para texto y archivo, alineados en fila */
+.inputs-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Estilo de los inputs de texto y file */
+input[type="text"], input[type="file"] {
+    width: 48%;  
+    padding: 0 10px;
+    margin: 10px 0;
+    border: 2.5px solid #025959;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #F2BF91;
+    color: #025959;
+    height: 40px;
+}
+
+/* Estilo cuando los inputs están en foco */
+input[type="text"]:focus, input[type="file"]:focus {
+    outline: none;
+}
+
+/* Estilo del botón de generar QR */
+button.generate-btn {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #6F7302;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+button.generate-btn:hover {
+    background-color: #F29B30;
+    color: #025959;
+    font-weight: bold;
+    transform: scale(1.05);
+}
+
+/* Estilo del canvas para el QR */
+canvas {
+    display: block;
+    margin: 20px auto;
+    border: 2.5px solid #025959;
+    border-radius: 4px;
+    width: 200px;
+    height: 200px; 
+}
+
+/* Ocultar el input de tipo file */
+input[type="file"] {
+    display: none;
+}
+
+/* Estilo personalizado para el botón de subir imagen */
+.label-file {
+    display: inline-block;
+    padding: 0 10px;
+    background-color: #6F7302;  /* Fondo verde oliva */
+    color: #FFFFFF;  /* Texto blanco */
+    font-size: 16px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    width: 48%;
+    margin-top: 10px;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+}
+
+/* Efecto hover en el botón de subir imagen */
+.label-file:hover {
+    background-color: #F29B30;  /* Fondo naranja */
+    color: #025959;  /* Texto en verde oscuro */
+    font-weight: bold;
+    transform: scale(1.05);  /* Aumenta ligeramente el tamaño */
+}
+
+/* Deshabilitar el botón de imagen cuando hay texto */
+input[type="text"]:not(:empty) ~ .inputs-container input[type="file"] + .label-file {
+    background-color: #B0B0B0; /* Gris */
+    cursor: not-allowed; /* Cambiar el cursor */
+}
+
+input[type="text"]:not(:empty) ~ .inputs-container input[type="file"]:not(:empty) + .label-file {
+    pointer-events: none; /* Deshabilitar el hover y click */
+}
+
+/* Estilo de mensajes de alerta (error) */
+.alert {
+    color: #F44336;
+    background-color: #FFEBEE;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Estilo de mensajes de éxito */
+.success {
+    color: #8BC34A;
+    background-color: #E8F5E9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}
