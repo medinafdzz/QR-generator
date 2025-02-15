@@ -3,68 +3,73 @@ function handleImageSelection() {
     const fileInput = document.getElementById("imageInput");
     const labelFile = document.querySelector(".label-file");
 
-    // Si hay un archivo seleccionado, actualizar el texto
     if (fileInput.files.length > 0) {
-        const fileName = fileInput.files[0].name; // Obtener el nombre del archivo
-        labelFile.textContent = fileName;  // Cambiar el texto del label
+        const fileName = fileInput.files[0].name;
+        labelFile.textContent = fileName;
     } else {
-        labelFile.textContent = "Upload Image";  // Restaurar el texto original
+        labelFile.textContent = "Upload Image";
     }
 }
-
-// Deshabilitar el botón de imagen si hay texto en el campo
-document.getElementById("text").addEventListener("input", function () {
-    const textInput = document.getElementById("text");
-    const fileInput = document.getElementById("imageInput");
-    const labelFile = document.querySelector(".label-file");
-
-    if (textInput.value.trim() !== "") {
-        labelFile.style.backgroundColor = "#B0B0B0";  // Fondo gris
-        labelFile.style.cursor = "not-allowed";  // Cursor deshabilitado
-        labelFile.style.pointerEvents = "none";  // Deshabilitar clics y hover
-    } else {
-        labelFile.style.backgroundColor = "#6F7302";  // Fondo verde oliva
-        labelFile.style.cursor = "pointer";  // Cursor activo
-        labelFile.style.pointerEvents = "auto";  // Habilitar clics y hover
-    }
-});
 
 function generateQR() {
     const textInput = document.getElementById('text').value;
     const fileInput = document.getElementById('imageInput').files[0];
-    
+
     if (!textInput && !fileInput) {
         alert('Por favor ingresa texto o selecciona una imagen para generar el QR');
         return;
     }
 
-    let qrContent = textInput || URL.createObjectURL(fileInput);
+    let qrContent = textInput || "";  // Si hay texto, usar texto, sino vacío
 
-    const qr = new QRious({
-        element: document.getElementById('qrcode'),
-        value: qrContent,
-        size: 200
-    });
+    if (fileInput) {
+        // Usar FormData para enviar la imagen a Imgur
+        const formData = new FormData();
+        formData.append("image", fileInput);
 
-    // Reset inputs
-    document.getElementById('text').value = '';
-    document.getElementById('imageInput').value = '';
-    
-    // Restaurar el estado del botón de subir imagen
-    const labelFile = document.querySelector('.label-file');
-    labelFile.textContent = 'Upload Image';
-    labelFile.style.backgroundColor = '#6F7302';  // Restablecer solo el fondo, no el hover
-    labelFile.style.cursor = 'pointer';  // Restablecer cursor
-    labelFile.style.pointerEvents = 'auto';  // Habilitar clics y hover
+        fetch('https://api.imgur.com/3/image', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Client-ID 11214b83c404406', // Tu Client-ID
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const imageUrl = data.data.link; // URL de la imagen subida
 
-    // Asegurarse de que el estilo hover funcione al pasar el mouse
-    labelFile.addEventListener('mouseover', function() {
-        labelFile.style.backgroundColor = '#F29B30';  // Cambiar el color de fondo al hacer hover
-    });
+                // Generar el QR con la URL de la imagen
+                const qr = new QRious({
+                    element: document.getElementById('qrcode'),
+                    value: imageUrl,
+                    size: 200
+                });
 
-    labelFile.addEventListener('mouseout', function() {
-        labelFile.style.backgroundColor = '#6F7302';  // Restablecer el color de fondo cuando se quita el hover
-    });
+                // Mostrar el mensaje debajo del QR con el enlace de Imgur
+                const imgurMessage = document.getElementById('imgur-message');
+                const imgurLink = document.getElementById('imgur-link');
+                imgurLink.href = imageUrl;
+                imgurMessage.style.display = 'block'; // Mostrar el mensaje
+
+                // Limpiar los campos de entrada
+                document.getElementById('text').value = '';
+                document.getElementById('imageInput').value = '';
+                document.querySelector('.label-file').textContent = 'Upload Image';
+            } else {
+                alert('Error al subir la imagen');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al subir la imagen');
+        });
+    } else {
+        // Generar el código QR solo con el texto
+        const qr = new QRious({
+            element: document.getElementById('qrcode'),
+            value: qrContent,
+            size: 200
+        });
+    }
 }
-
-
