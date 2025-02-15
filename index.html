@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Código QR</title>
-    
-    <link rel="stylesheet" href="styles.css"> 
+
     <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <script src="scripts/qrious.min.js"></script>
     <script src="scripts/script.js" defer></script>
 </head>
 <body>
     <div class="container">
         <h2>Generador de Código QR</h2>
-        <!-- Contenedor para los inputs de texto y archivo -->
         <div class="inputs-container">
-            <input type="text" id="text" placeholder="Ingresa texto o URL">
+            <input type="text" id="text" placeholder="URL">
             <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelection()">
             <label for="imageInput" class="label-file">Upload Image</label>
         </div>
 
-        <button class="generate-btn" onclick="generateQR()">Generar QR</button>
+        <button class="generate-btn" onclick="generateQR()">Generate QR</button>
         <canvas id="qrcode"></canvas>
+        
+        <div id="imgur-message" class="imgur-message" style="display: none;">
+            You can see your picture in <a id="imgur-link" class="imgur-link" href="" target="_blank">imgur.com</a>
+        </div>
     </div>
 </body>
 </html>
