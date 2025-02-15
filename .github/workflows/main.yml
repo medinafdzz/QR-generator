@@ -21,17 +21,6 @@ jobs:
         git config --global user.name "GitHub Actions"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build project
-      run: npm run build
-
     - name: Check if gh-pages branch exists
       run: git fetch origin gh-pages || git branch gh-pages
 
@@ -39,5 +28,5 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
-        folder: .  # Cambia a la carpeta que contiene los archivos de tu proyecto si es necesario
+        folder: .  # Asegúrate de que sea la carpeta raíz del proyecto, si no, ajusta este valor
         token: ${{ secrets.GITHUB_TOKEN }}
