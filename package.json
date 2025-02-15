@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
-    "build": "mkdir -p build && cp -r * build"  // Agregar este script de construcción
+    "build": "mkdir -p build && cp -r * build"
   },
   "keywords": [],
   "author": "",
