@@ -72,4 +72,5 @@ function generateQR() {
             size: 200
         });
     }
+    document.getElementById('text').value = '';
 }
