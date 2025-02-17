@@ -26,7 +26,7 @@ This project is built with:
 
 ## 📸 Preview
 
-![image](https://github.com/user-attachments/assets/d084f1b5-9104-4cd8-9840-cb7dc29dac43)
+https://github.com/user-attachments/assets/6c187096-f05a-408d-8b15-a67c81073e83
 
 ## 🛡️ Customization
 
