@@ -26,12 +26,12 @@ This project is built with:
 
 ## 📸 Preview
 
-https://github.com/user-attachments/assets/6c187096-f05a-408d-8b15-a67c81073e83
+![Example](https://github.com/user-attachments/assets/29668e5d-b3b6-416e-b361-ece6294de13a)
 
 ## 🛡️ Customization
 
-If you want to modify the design, you can edit the \`styles.css\` file.  
-To change the QR generation logic, check \`script.js\`.
+If you want to modify the design, you can edit the *styles.css* file.  
+To change the QR generation logic, check *script.js*.
 
 ## 📜 License
 
