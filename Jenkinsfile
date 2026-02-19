@@ -36,7 +36,7 @@ pipeline {
 
                 env.SONARQUBE_PROJECT_KEY = env.REPO_NAME.replace('/', '_')
             }
-                echo "Repository name: ${REPO_NAME}"
+                echo "Repository name: ${env.REPO_NAME}"
 
                 echo 'Compiling the Java example code for SonarQube analysis'
 
@@ -52,10 +52,6 @@ pipeline {
                     """
                 }
                 echo 'Here SonarQube will measure the code quality'
-
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false
-                }
             }
         }
         stage('Stage 2 - Preparation of the credentials and execution of the IA agent') {
