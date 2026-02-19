@@ -26,21 +26,20 @@ pipeline {
                 echo 'In this stage, it downloads the repository that makes the webhhok'
                 checkout scm
 
-                '''
-                Get the name of the remote repo
+            script {
+                // Get the name of the remote repo
                 // (basename is used to get the name of the repo without the .git extension)
-                '''
                 env.REPO_NAME = sh(
                     script: 'basename $(git config --get remote.origin.url) .git',
                     returnStdout: true
                 ).trim()
 
                 env.SONARQUBE_PROJECT_KEY = env.REPO_NAME.replace('/', '_')
-
+            }
                 echo "Repository name: ${REPO_NAME}"
 
                 echo 'Compiling the Java example code for SonarQube analysis'
-                sh 'javac src/*.java'
+
                 echo 'Sonarqube analysis'
                 echo 'Execution of the SonarQube Scanner to analyze the code'
                 withSonarQubeEnv('SonarQube-Server') {
@@ -48,7 +47,8 @@ pipeline {
                      sonar-scanner \
                      -Dsonar.projectName=${env.REPO_NAME} \
                      -Dsonar.projectKey=${env.SONARQUBE_PROJECT_KEY} \
-                     -Dsonar.sources=. -Dsonar.java.binaries=src
+                     -Dsonar.sources=. \
+                     -Dsonar.exclusions=**/node_modules/**,**/vendor/**,**/*.md,**/*.txt,**/*.json \
                     """
                 }
                 echo 'Here SonarQube will measure the code quality'
